@@ -1222,7 +1222,10 @@ int dump_add_packet( unsigned char *h80211, int caplen, struct rx_info *ri, int 
     if ( caplen > 28)
         if ( memcmp(h80211 + 24, llcnull, 4) == 0)
             return ( 0 );
-
+#ifdef __APPLE__
+    if ( ri->ri_isbadfcs )
+    	return 0;
+#endif
     /* grab the sequence number */
     seq = ((h80211[22]>>4)+(h80211[23]<<4));
 

@@ -202,8 +202,9 @@ static void get_radiotap_info(struct priv_darwin *pd,
       ri->ri_power = dbm_power;
     else
       ri->ri_power = db_power;
+    
+    ri->ri_isbadfcs = (rflags & IEEE80211_RADIOTAP_F_BADFCS) != 0;
   }
-
         /* XXX cache; drivers won't change this per-packet */
         /* check if FCS/CRC is included in packet */
         if (pd->pd_nocrc || (rflags & IEEE80211_RADIOTAP_F_FCS)) {
